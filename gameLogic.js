@@ -10,35 +10,52 @@ function getComputerChoice() {
     }
     return computerChoice
 }
+
 function getHumanChoice() {
     let choice = prompt("What is your next move?").toLowerCase()
     return choice
 }
 
-let humanPoint = 0
-let computerPoint = 0
-
-/*  This loop runs 5 times, asks for human input each time, generates computer input each time, compares them and gives a point
-    to the one who beat the other in each round, if its a draw the loop jumps to the beginning  */
-for (let i=0; i<5; i+=1) {
-    let computerChoice = getComputerChoice()
-    let humanChoice = getHumanChoice()
+/* ˇˇˇ This function should run once, decide who won and the return the result of the game: 1: human won, 2: ai won, 3: draw */
+function playRound() {
+    let result = 0
     if (humanChoice === "rock" && computerChoice === "paper") {
-        computerPoint += 1
+        result = 1
     } else if (humanChoice === "rock" && computerChoice === "scissors") {
-        humanPoint += 1 
+        result = 2
     } else if (humanChoice === "paper" && computerChoice === "rock") {
-        humanPoint += 1 
+        result = 2
     } else if (humanChoice === "paper" && computerChoice === "scissors") {
-        computerPointPoint += 1 
+        result = 1
     } else if (humanChoice === "scissors" && computerChoice === "rock") {
-        computerPointPoint += 1 
+        result = 1
     } else if (humanChoice === "scissors" && computerChoice === "paper") {
-        humanPoint += 1 
+        result = 2
     } else {
-        continue
-    }    
+        result = 3
+    }
+
+    return result
+
+    /* ˇˇˇ This part should be separate, since the loop can iterate numbers according to how many rounds are played */
+    console.log(`Your choice: ${humanChoice}, the computers choice: ${computerChoice}.`)
+    console.log(`Points: ${humanPoint} : ${computerPoint}.`)
+    if (computerPoint > humanPoint) {
+        console.log("The computer won!")
+    } else if (humanPoint > computerPoint) {
+        console.log("You won!")
+    } else {
+        console.log("Its a draw!")
+    }
 }
-console.log(humanPoint)
-console.log(computerPoint)
+
+
+let computerChoice = getComputerChoice() /* This way we have the human choice here too, not just in the fuction */
+let humanChoice = getHumanChoice() /* This way we have the computer choice here too, not just in the fuction */
+
+
+if (playRound() === 1) {
+
+}
+console.log(playRound())
 
