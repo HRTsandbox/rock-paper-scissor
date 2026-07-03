@@ -11,38 +11,55 @@ function getComputerChoice() {
     return computerChoice
 }
 
+
 function getHumanChoice() {
-    let choice = prompt("What is your next move?").toLowerCase()
-    return choice
+    let humanChoice = prompt("What is your next move?").toLowerCase()
+    return humanChoice
 }
 
-/* ˇˇˇ This function should run once, decide who won and the return the result of the game: 1: human won, 2: ai won, 3: draw */
-function playRound() {
+
+function playRound(humanChoice, computerChoice) {
     let result = 0
     if (humanChoice === "rock" && computerChoice === "paper") {
-        result = 1
+        result = 2
     } else if (humanChoice === "rock" && computerChoice === "scissors") {
-        result = 2
+        result = 1
     } else if (humanChoice === "paper" && computerChoice === "rock") {
-        result = 2
+        result = 1
     } else if (humanChoice === "paper" && computerChoice === "scissors") {
-        result = 1
-    } else if (humanChoice === "scissors" && computerChoice === "rock") {
-        result = 1
-    } else if (humanChoice === "scissors" && computerChoice === "paper") {
         result = 2
-    } else {
-        result = 3
+    } else if (humanChoice === "scissors" && computerChoice === "rock") {
+        result = 2
+    } else if (humanChoice === "scissors" && computerChoice === "paper") {
+        result = 1
     }
 
-    return result
+    return result    
+}
 
-    /* ˇˇˇ This part should be separate, since the loop can iterate numbers according to how many rounds are played */
-    console.log(`Your choice: ${humanChoice}, the computers choice: ${computerChoice}.`)
-    console.log(`Points: ${humanPoint} : ${computerPoint}.`)
-    if (computerPoint > humanPoint) {
+
+function playGame() {
+    let humanScore = 0
+    let computerScore = 0
+    for (let i = 0; i<5; i++ ) {
+        let computerChoice = getComputerChoice()
+        let humanChoice = getHumanChoice()
+        let result = playRound(humanChoice, computerChoice)
+
+        if (result === 1) {
+            humanScore += 1
+        } else if (result === 2) {
+            computerScore += 1
+        }
+
+        console.log(`Your choice: ${humanChoice}, the computers choice: ${computerChoice}.`)
+        console.log(`Points: ${humanScore} : ${computerScore}.`)
+    }
+
+
+    if (computerScore > humanScore) {
         console.log("The computer won!")
-    } else if (humanPoint > computerPoint) {
+    } else if (humanScore > computerScore) {
         console.log("You won!")
     } else {
         console.log("Its a draw!")
@@ -50,12 +67,5 @@ function playRound() {
 }
 
 
-let computerChoice = getComputerChoice() /* This way we have the human choice here too, not just in the fuction */
-let humanChoice = getHumanChoice() /* This way we have the computer choice here too, not just in the fuction */
-
-
-if (playRound() === 1) {
-
-}
-console.log(playRound())
+playGame()
 
